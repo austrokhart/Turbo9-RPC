@@ -157,7 +157,7 @@
 
       if ($vChr != " ") {
         if (($vChr == "'") || ($vChr == '"')) {
-          $vStr = StrExtractQuoted($AStr, &$vPos, $vChr);
+          $vStr = StrExtractQuoted($AStr, $vPos, $vChr);
         }
         else {
           $vLen = strcspn($AStr, " ", $vPos);

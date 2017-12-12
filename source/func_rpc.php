@@ -19,17 +19,6 @@
   define("dispIn", 64);
   define("dispOut", 128);
 
-  //  $dispVoid      = 0;
-  //  $dispChar      = 1;
-  //  $dispWord      = 2;
-  //  $dispInteger   = 3;
-  //  $dispDate      = 4;
-  //  $dispExtended  = 5;
-  //  $dispString    = 6;
-  //  $dispInt64     = 7;
-  //  $dispMethod    = 8;
-  //  $dispBinStr    = 9;
-
   define("dispVoid", 0);
   define("dispString", 6);
 
@@ -37,8 +26,6 @@
 
 
   function rpc_connect($server, $port, $service, $guid, &$info) {
-
-    //  print "connect to: {$server} : {$port}, {$service}, {$guid}<br>\n";
 
     @$sock = fsockopen($server, $port, $errno, $errstr, 5);
 
@@ -69,15 +56,11 @@
     $info[2] = rpc_int_ex_unserialize($res);
     $info[3] = rpc_guid_unserialize($res);
 
-    //  print "info: {$info[0]} : {$info[1]}, {$info[2]}, {$info[3]}\n";
-
     return $sock;
   }
 
 
   function rpc_reconnect($server, $port, $info) {
-
-    //  print "reconnect to: {$server} {$port}, info: {$info[0]} : {$info[1]}, {$info[2]}, {$info[3]}\n";
 
     @$sock = fsockopen($server, $port, $errno, $errstr, 5);
 
@@ -132,8 +115,6 @@
 
 
   function rpc_call_ex($sock, $method_idx, $class, $proc, $args) {
-
-    //  echo "rpc_call_ex: $class, $proc, argcount=", count($args), "<br>";
 
     $data1 =
       chr(NetCmdCall).
@@ -191,23 +172,14 @@
   }
 
 
-  //-----------------------------------------------------------------------------
-
-
   function rpc_communicate($sock, $data1, $data2 = "", &$res2 = "") {
 
-    //    $_SESSION["RPCState"] = 1;
-    //    session_commit();
-    //    try
-    //    {
     rpc_send_packet($sock, $data1, $data2);
 
     $res = rpc_recv_packet($sock, $res2);
 
     $code = ord($res{0});
     $res = substr($res, 1);
-
-    //    echo "Code=", $code, ", Res=", $res, "<br>";
 
     if ($code == NetRetError) {
       throw new Exception(sprintf("RPC call return error: %s", rpc_exception_unserialize($res)));
@@ -217,18 +189,7 @@
       throw new Exception("RPC callback not supported");
     }
 
-    //      session_start();
-    //      $_SESSION["RPCState"] = 0;
-
     return $res;
-
-    //    }
-    //    catch (Exception $e)
-    //    {
-    //      session_start();
-    //      $_SESSION["RPCState"] = 0;
-    //      throw $e;
-    //    };
   }
 
 
@@ -239,8 +200,6 @@
       rpc_int_serialize(strlen($data1)).
       rpc_int_serialize(strlen($data2)).
       $data1.$data2;
-
-    //  echo "Send=", $packet, "<br>";
 
     $res = fwrite($sock, $packet);
 
@@ -262,11 +221,9 @@
 
     $count1 = rpc_int_unserialize($header);
     $count2 = rpc_int_unserialize($header);
-    //  echo "Header=", $header, ", ", $count1, ", ", $count2, "<br>";
 
     $res1 = rpc_recv($sock, $count1);
     $res2 = rpc_recv($sock, $count2);
-    //  echo "Res1='", MaskBin($res1), "', Res2='", MaskBin($res2), "'<br>";
 
     return $res1;
   }
@@ -291,8 +248,6 @@
     return $res;
   }
 
-
-  //-----------------------------------------------------------------------------
 
   function rpc_unserialize(&$str, $len) {
 
@@ -345,9 +300,9 @@
 
   function rpc_int_serialize($val, $size = 4) {
 
-    for ($i = 0; $i < $size; $i++) {
-      $str = $str.chr($val % 256);
-      $val = floor($val / 256);
+    for ($str = "", $i = 0; $i < $size; $i++) {
+      $str .= chr($val % 256);
+      $val  = floor($val / 256);
     }
 
     return $str;
@@ -432,14 +387,11 @@
   function rpc_guid_unserialize(&$str) {
 
     $guid = rpc_unserialize($str, 16);
-    //!!!
     return $guid;
   }
 
 
   function rpc_value_serialize($val) {
-
-    //  echo "rpc_value_serialize=", bin2hex($val), "<br>";
 
     if (is_string($val)) {
       $res = chr(VarString).rpc_str_serialize($val);
@@ -465,8 +417,6 @@
 
 
   function rpc_value_unserialize(&$str) {
-
-    //  echo "rpc_value_unserialize=", bin2hex($str), "<br>";
 
     $res = null;
 
@@ -500,7 +450,6 @@
       }
     }
 
-    //  echo $res, "<br>";
     return $res;
   }
 
@@ -529,7 +478,6 @@
       $pckname = rpc_str_unserialize($str);
       $clsname = rpc_str_unserialize($str);
 
-      //    echo "Object=$pckname.$clsname<br>";
       if ((strtolower($pckname) == 'kernel') && (strtolower($clsname) == 'binaryobject')) {
         $res = new TBBlob('');
         $res->UnserializeFromStr($str);
@@ -550,6 +498,5 @@
     $code = rpc_int_ex_unserialize($str);
     $mess = rpc_str_unserialize($str);
 
-    //  Echo "Error: $class, $code, $mess <br>";
     return $mess;
   }
