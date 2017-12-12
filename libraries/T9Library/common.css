@@ -1,0 +1,449 @@
+/* ---------------------------------------- */
+/* Формы                                    */
+
+/* 
+  div.form
+    form.<ClassName>
+      fieldset  
+        dl
+          dt
+            label
+          dd
+            input
+
+        dl.Subtable
+          table
+*/
+
+/* Выстраиваем метки и поля ввода в одну линию */
+
+div.Form form {
+}
+div.Form form dl {
+  display:table;
+  width:100%;
+  margin:0px 0px 2px 0px;
+  border-spacing:0px;
+}            
+div.Form form dt,
+div.Form form dd {
+  display:table-cell;
+  vertical-align:top;
+  border-spacing:0px;
+}
+div.Form form dd {
+  width:100%;
+  padding-right:6px;
+}
+div.Form form label {
+  display:block;
+  margin-right:5px;
+}
+div.Form form input,
+div.Form form select,
+div.Form form textarea {
+  width:100%;
+}
+
+
+div.Form form dd.CheckBox {
+  vertical-align:middle;
+}
+
+div.Form form dd.CheckBox input {
+  vertical-align:middle;
+  text-align:right;
+  margin:0px 5px 0px 0px;
+  display:inline;
+  width:Auto;
+}
+
+div.Form form dd.CheckBox label {
+  vertical-align:middle;
+  display:inline;
+}
+
+
+/* ---------------------------------------- */
+/* Редакторы                                */	
+
+/*Поля*/
+
+form input[readonly] {
+}
+
+/*Ссылочные поля*/
+
+div.Form form dd.Ref {
+  padding-right:0px;
+}
+form div.Ref {
+  display:table;
+  width:100%;
+}
+form div.Ref div.Edt {
+  display:table-cell;
+  width:100%;
+  padding-right:8px;
+}
+form div.Ref div.But {
+  display:table-cell;
+}
+form div.Ref div.But button {
+  width:22px;
+  height:22px;
+  padding:0px;
+  margin:0px;
+}
+
+form div.RefID {
+  display:none; 
+}
+
+/*
+form button.Ref {
+  padding:0px;
+  width:22px;
+  height:22px;
+}
+
+form dl.Subtable button.Ref {
+  margin:0px;
+  padding:0px;
+  width:20px;
+  height:20px;
+}
+*/
+
+/* Подтаблицы */	
+
+form dl.Subtable table {
+  table-layout:fixed;
+  width:100%;
+  margin:0px;
+}
+
+form dl.Subtable table td {
+  border:1px solid black;
+  overflow:hidden;
+}
+
+form dl.Subtable table tr.Header td {
+  padding:2px 5px;
+}
+
+/* Поля подтаблиц */
+
+form dl.Subtable table td {
+  vertical-align:top;
+}
+
+form dl.Subtable table dl {
+  margin:0px;
+}
+
+form dl.Subtable table input {
+  width:100%;
+  border:none;
+}
+
+form dl.Subtable table td div.ROnly {
+}
+
+form dl.Subtable table td div.Static {
+  padding:2px 5px;
+}
+
+/* Управляющие кнопки */	
+
+form dl.Subtable table td.Control {
+  border:0px solid black;
+  padding-left:5px;
+}
+form dl.Subtable table td.Control button {
+  font-size: 10px;
+  font-weight: bold;
+  padding:0px;
+  width:22px;
+  height:22px;
+}
+form dl.Subtable table td.Control button.Del {
+  color:red;
+}
+form dl.Subtable table td.Control button.Add {
+  color:green;
+}
+
+/* Сворачивающиеся секции */
+
+form div.Section button.Toggle {
+  font-size:8px;
+  width:14px;
+  height:14px;
+  display:inline;
+}
+
+form div.Section div.SecCaption {
+  display:inline;
+}
+
+form div.Section div.Caption_Closed {
+/*  display:none; */
+}
+
+/* Кнопки записать/отменить */
+
+form dl.Buttons button {
+  margin-top:10px;
+  margin-right:10px;
+}
+
+
+div.Form a {
+  text-decoration:none;
+  color: black;
+}
+div.Form a:hover {
+  text-decoration:underline;
+  cursor: pointer;
+} 
+
+
+/* ---------------------------------------- */
+/* Universal editor                         */	
+
+form.editor dl {
+}
+form.editor label {
+  width:150px;
+}
+form.editor dl.Subtable table {
+  margin-bottom:10px;
+}
+form.editor dl.Subtable, form.editor dl.Subtable dt {
+  display:inline;
+}
+
+
+/* ---------------------------------------- */
+/* Картотеки                                */
+
+/*
+  div.Card
+    div.Title
+    div.Filter
+    div.GroupPath
+    div.Navigator
+    table.Crdfile
+    div.Navigator
+*/
+
+div.Card {
+}
+
+/* Title */
+
+div.Card div.Title {
+/*border:1px solid;*/
+  font-size: 15px;
+  font-weight: bold;
+  margin:0px 0px 10px 0px;
+}
+
+/* Filter */
+
+div.Card div.Filter {
+  margin:0px 0px 10px 0px;
+}
+div.Card div.Filter div.Hidden {
+  display:none; 
+}
+div.Card div.Filter input {
+  display:inline-block;
+  width:99%;
+}
+
+/* GroupPath */
+
+div.Card div.GroupPath {
+}
+div.Card div.GroupPath ul {
+  margin:0px;
+  padding:0px; 
+}
+div.GroupPath li {
+  display:inline;
+}
+div.GroupPath div.Div {
+  display:inline-block;
+  background-image:url(images/Arrow1.png);
+  width:6px;
+  height:9px;
+}
+
+/* Navigator */
+
+div.Navigator {
+  font-size: 10px;
+  text-align: right;
+  margin-top:2px;
+  margin-bottom:5px;
+}
+
+/* Table */
+
+table.Cardfile {
+  background-color:white;
+  table-layout:fixed;
+  border:1px solid black;
+}
+table.Cardfile td {
+/*border:1px solid black;*/
+  border-right:1px solid gray;
+  padding:2px 5px;
+  overflow:hidden;
+}
+
+table.Cardfile tr.Header, 
+table.Cardfile tr.Header a {
+  background-color:Gray;
+  color:White;
+}
+table.Cardfile tr.Header div.Sorted {
+  text-decoration:underline;
+/*font-style:italic;
+  font-weight: bold
+  color:White;*/
+}
+table.Cardfile tr.Data2 {
+  background-color:#F0F0F0;
+}
+
+table.Cardfile tr.Header td {
+  border:1px solid black;
+}
+table.Cardfile tr.Data1 td,
+table.Cardfile tr.Data2 td {
+  white-space:nowrap;
+}
+
+table.Cardfile td a {
+  text-decoration:none;
+  color: black;
+}
+table.Cardfile td a:hover {
+  text-decoration:underline;
+  cursor: pointer;
+} 
+/*table.Cardfile tr.Data1:hover,
+table.Cardfile tr.Data2:hover {
+  background-color:RGB(255,215,156);
+}*/
+
+/* Icons */
+table.Cardfile tr td.Icon {
+/*background-color:White;*/
+  border-right:none;
+  padding:1px;
+}
+table.Cardfile tr td.Icon div.Group {
+/*background-color:Blue;*/
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-image:url(images/Folder.png);
+}
+table.Cardfile tr td.Icon div.Doc {
+/*background-color:Blue;*/
+  background-position:center center;
+  background-repeat:no-repeat;
+  background-image:url(images/List.png);
+}
+
+
+/* ---------------------------------------- */
+/* Reports                                  */	
+
+table.report {
+  table-layout:fixed;
+  width:100%;
+
+/*border:0px; */
+  margin:0px;
+
+  border:1px solid black;
+}
+
+table.report tr.header {
+}
+table.report tr.total {
+}
+
+
+table.report td {
+  overflow:hidden;
+
+/*border:1px solid black;*/
+  border-top:none;
+  border-bottom:1px solid black;
+  border-left:1px solid black;
+  border-right:1px solid black;
+
+  white-space:nowrap;
+  padding:2px 3px 2px 3px;
+}
+table.report td:hover {
+/*color: Blue;*/
+  text-decoration:underline;
+  cursor: pointer;
+} 
+
+
+table.report tr.data td,
+table.report tr.data td.spl,
+table.report tr.data td.Init,
+table.report tr.data td.Turn,
+table.report tr.data td.Rest {
+}
+
+table.report div.num {
+  font-family:courier new;
+  font-size:13px;
+  text-align:right;
+}
+
+table.report div.val {
+}
+
+table.report a {
+  text-decoration:none;
+  color: black;
+}
+
+
+/*
+ tr.down_row {
+ }
+ tr.down_row:hover {
+   background-color:darkgray;
+   cursor:pointer;
+ } 
+
+ span.down_info {
+   font-size: 11px;
+   text-decoration:underline;
+   cursor:pointer;
+ }
+
+*/
+
+/* ---------------------------------------- */
+
+div.adv img {
+   border:none;
+   background-color:red;
+}
+
+div.adv a {
+  text-decoration:none;
+  color: black;
+}

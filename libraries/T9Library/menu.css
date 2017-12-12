@@ -1,0 +1,86 @@
+/*------------------------------------- */
+/* Menu                                 */
+
+/*--------------------------------------*/
+/* DropDown menu 		        */
+
+ul.DropDown,
+ul.DropDown li,
+ul.DropDown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul.DropDown {
+  position: relative;
+  float: left;
+  z-index: 597; 
+}
+
+ul.DropDown li {
+  float: left;
+  line-height:18px;
+}
+
+ul.DropDown li:hover {
+  position: relative;
+  cursor: default;
+  z-index: 599;
+} 
+
+
+ul.DropDown a {
+  color:black;
+  display: block;
+  padding:0px 5px;
+  text-decoration: none;
+}
+
+ul.DropDown a:hover {
+  color:white;
+  background-color:black;
+}
+
+/*---------*/
+/* Submenu */
+
+ul.DropDown li ul {
+  padding:5px 5px;
+}
+
+ul.DropDown ul {
+  visibility: hidden; 
+  position: absolute;
+  top:100%;
+  left:0px;
+  z-index: 598;
+  width: 150%; 
+  padding:5px 0px;
+/*  border:5px double white; */
+  border:1px solid black;
+}
+
+ul.DropDown li:hover > ul {
+  visibility: visible;
+}
+
+ul.DropDown ul {
+/*  background-color:darkcyan; */
+  color:black;
+  background-color:white;
+}
+
+ul.DropDown ul li {
+  width:100%;
+/*background-color:cyan;*/
+  text-align:left;
+}
+
+ul.DropDown ul li a {
+  color:black;
+/*background-color:blue;*/
+/*padding:1px 5px;*/
+  text-decoration: none;
+}
+
