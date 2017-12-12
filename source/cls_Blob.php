@@ -5,7 +5,7 @@
   class TBBlob {
 
 
-    public $Data;             // Строка данных
+    public $Data; // Строка данных
 
 
     function __construct($Data) {

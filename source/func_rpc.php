@@ -77,7 +77,7 @@
       rpc_int_ex_serialize($info[2]).
       $info[3];
 
-    $res = rpc_communicate($sock, $data);
+    rpc_communicate($sock, $data);
 
     return $sock;
   }
@@ -108,7 +108,7 @@
       throw new Exception('RPC protocol error: invalid result returned');
     };
 
-    $t = rpc_int_unserialize($res, 1);
+    rpc_int_unserialize($res, 1);
 
     return rpc_str_unserialize($res);
   }
@@ -152,22 +152,18 @@
 
   function rpc_disconnect($sock) {
 
-    $data =
-      chr(NetCmdDisconnect);
+    $data = chr(NetCmdDisconnect);
 
-    $res = rpc_communicate($sock, $data);
-
+    rpc_communicate($sock, $data);
     fclose($sock);
   }
 
 
   function rpc_standby($sock) {
 
-    $data =
-      chr(NetCmdRelease);
+    $data = chr(NetCmdRelease);
 
-    $res = rpc_communicate($sock, $data);
-
+    rpc_communicate($sock, $data);
     fclose($sock);
   }
 
@@ -494,8 +490,9 @@
 
   function rpc_exception_unserialize(&$str) {
 
-    $class = rpc_str_unserialize($str);
-    $code = rpc_int_ex_unserialize($str);
+    rpc_str_unserialize($str);
+    rpc_int_ex_unserialize($str);
+
     $mess = rpc_str_unserialize($str);
 
     return $mess;
