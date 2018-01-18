@@ -1,7 +1,9 @@
 <?php
+
+  namespace Swiftdoc\TurboRPC\RPC95;
+
   
-  
-  class RPC95 {
+  class RPC {
     
     
     const VarUnknown = 0;
@@ -41,7 +43,7 @@
       @$sock = fsockopen($server, $port, $errno, $errstr, 5);
 
       if (!$sock) {
-        throw new Exception(sprintf("Socket error %d: %s", $errno, iconv('WINDOWS-1251', 'UTF-8', $errstr)));
+        throw new \Exception(sprintf("Socket error %d: %s", $errno, iconv('WINDOWS-1251', 'UTF-8', $errstr)));
       }
 
       // Negotiating...
@@ -76,7 +78,7 @@
       @$sock = fsockopen($server, $port, $errno, $errstr, 5);
 
       if (!$sock) {
-        throw new Exception(sprintf("Socket error %d: %s", $errno, $errstr));
+        throw new \Exception(sprintf("Socket error %d: %s", $errno, $errstr));
       }
 
       $data =
@@ -110,13 +112,13 @@
       $n = self::int_ex_unserialize($res);
 
       if ($n <> 1) {
-        throw new Exception("RPC protocol error: invalid result count ($n)");
+        throw new \Exception("RPC protocol error: invalid result count ($n)");
       };
 
       $t = self::int_unserialize($res, 1);
 
       if ($t <> chr(self::dispOut + self::dispString)) {
-        throw new Exception('RPC protocol error: invalid result returned');
+        throw new \Exception('RPC protocol error: invalid result returned');
       };
 
       self::int_unserialize($res, 1);
@@ -154,7 +156,7 @@
       $n = self::int_ex_unserialize($res);
 
       if ($n <> 0) {
-        throw new Exception("RPC protocol error: invalid result count ($n)");
+        throw new \Exception("RPC protocol error: invalid result count ($n)");
       };
 
       return self::value_unserialize($res2);
@@ -189,11 +191,11 @@
       $res = substr($res, 1);
 
       if ($code == self::NetRetError) {
-        throw new Exception(sprintf("RPC call return error: %s", self::exception_unserialize($res)));
+        throw new \Exception(sprintf("RPC call return error: %s", self::exception_unserialize($res)));
       };
 
       if ($code == self::NetRetCallback) {
-        throw new Exception("RPC callback not supported");
+        throw new \Exception("RPC callback not supported");
       }
 
       return $res;
@@ -211,7 +213,7 @@
       $res = fwrite($sock, $packet);
 
       if (!$res) {
-        throw new Exception("Socket write error");
+        throw new \Exception("Socket write error");
       }
     }
 
@@ -221,7 +223,7 @@
       $header = self::recv($sock, 12);
 
       if (substr($header, 0, 4) <> "TBNP") {
-        throw new Exception("RPC protocol error");
+        throw new \Exception("RPC protocol error");
       };
 
       $header = substr($header, 4);
@@ -245,7 +247,7 @@
         $str = fread($sock, $len);
 
         if (!$str) {
-          throw new Exception("Socket read error");
+          throw new \Exception("Socket read error");
         };
 
         $len -= strlen($str);
@@ -300,7 +302,7 @@
       }
       else {
 
-        throw new Exception("RPC protocol error: string read error");
+        throw new \Exception("RPC protocol error: string read error");
       }
     }
 
@@ -416,7 +418,7 @@
         $res = chr(self::VarObject).self::object_serialize($val);
       }
       else {
-        throw new Exception("RPC protocol error: invalid argument type");
+        throw new \Exception("RPC protocol error: invalid argument type");
       }
 
       return $res;
@@ -453,7 +455,7 @@
             $res = self::object_unserialize($str);
             break;
           default:
-            throw new Exception("RPC protocol error: invalid result returned");
+            throw new \Exception("RPC protocol error: invalid result returned");
         }
       }
 
@@ -479,7 +481,7 @@
       if ($code <> 0) {
 
         if ($code <> self::esiCMTAbstract) {
-          throw new Exception("RPC protocol error: unknown object code ($code)");
+          throw new \Exception("RPC protocol error: unknown object code ($code)");
         }
 
         $pckname = self::str_unserialize($str);
@@ -491,7 +493,7 @@
         }
 
         if (!$res) {
-          throw new Exception("RPC protocol error: unknown class: $pckname.$clsname");
+          throw new \Exception("RPC protocol error: unknown class: $pckname.$clsname");
         }
       }
 
@@ -512,7 +514,7 @@
 
     static function not_available() {
 
-      throw new Exception("К сожалению, данная функция пока не реализована");
+      throw new \Exception("К сожалению, данная функция пока не реализована");
     }
   }
 
@@ -537,13 +539,13 @@
 
     function SerializeToStr() {
 
-      return RPC95::int_ex_serialize(strlen($this->Data)).$this->Data;
+      return RPC::int_ex_serialize(strlen($this->Data)).$this->Data;
     }
 
 
     function UnSerializeFromStr(&$str) {
 
-      $len = RPC95::int_ex_unserialize($str);
-      $this->Data = RPC95::unserialize($str, $len);
+      $len = RPC::int_ex_unserialize($str);
+      $this->Data = RPC::unserialize($str, $len);
     }
   }
