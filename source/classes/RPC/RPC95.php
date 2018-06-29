@@ -1,6 +1,6 @@
 <?php
 
-  namespace Swiftdoc\TurboRPC\RPC95;
+  namespace Turbo9\RPC\RPC95;
 
   
   class RPC {
@@ -56,8 +56,8 @@
         self::guid_serialize($guid).
         self::str_serialize(session_id()).                 //session_id() ProcessIdent
         self::str_serialize("").                           //SeanceIdent
-        self::str_serialize($_SERVER['REMOTE_ADDR']).      //ComputerName
-        self::str_serialize($_SERVER['HTTP_USER_AGENT']).  //UserName
+        @self::str_serialize($_SERVER['REMOTE_ADDR']).      //ComputerName
+        @self::str_serialize($_SERVER['HTTP_USER_AGENT']).  //UserName
         chr(0).                                          //x32
         chr(0).                                          //NoPack
         chr(0);                                          //NoUnicode
